@@ -1,16 +1,15 @@
 #include <iostream>
-
 #include <string.h>
-
 
 using namespace std;
 
-int * sieve(int n){
+int * sieve(int n, int &numPrime){
     int * A;
     int * L;
-    int numPrime;
-    A =(int *) malloc(n*sizeof(int));
-    memset(A,0,8);
+    
+
+    A =(int *) malloc((n+1)*sizeof(int));
+    memset(A,0,(n+1)*sizeof(int));
     
     for (int p = 2; p<= n; p++){
         A[p]=p;
@@ -32,6 +31,7 @@ int * sieve(int n){
     }
 
     L = (int *) malloc(numPrime*sizeof(int));
+    memset(L,0,numPrime*sizeof(int));
 
     int j = 0;
     while (j < numPrime) {
@@ -47,9 +47,9 @@ int * sieve(int n){
     return L;
 }
 
-void printPrime(int* L, int n) {
+void printPrime(int* L, int &n) {
     int j = 0;
-    while (L[j] <= n){
+    while (j < n){
         cout << L[j] << " ";
         j++;
     }
@@ -58,10 +58,12 @@ void printPrime(int* L, int n) {
 
 int main()
 {
-    int n = 200;
+    int n = 20;
     int * L;
-    L = sieve(n);
-    printPrime(L,n);
+    int numPrime = 0;
+
+    L = sieve(n, numPrime);
+    printPrime(L, numPrime);
 
     free(L);
     return 0;
